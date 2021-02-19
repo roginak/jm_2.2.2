@@ -1,4 +1,4 @@
-package dao;
+package web.dao;
 
 import web.model.Car;
 
