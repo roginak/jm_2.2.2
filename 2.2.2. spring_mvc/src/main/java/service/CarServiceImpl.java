@@ -1,18 +1,18 @@
 package service;
 
+import dao.CarDao;
+import dao.CarDaoImpl;
 import web.model.Car;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CarServiceImpl implements CarService {
-    private List<Car> ls;
-
-    public CarServiceImpl(List<Car> ls) {
-        this.ls = ls;
-    }
-
     @Override
     public List<Car> getCars(Integer count) {
-        return count == null || count >= 5 ? ls : ls.subList(0, count);
+        CarDao dao = new CarDaoImpl();
+        List<Car> ls = dao.getCars();
+
+        return ls.stream().limit(count == null || count >= 5 ? ls.size() : count).collect(Collectors.toList());
     }
 }
